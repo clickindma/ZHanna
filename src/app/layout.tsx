@@ -4,7 +4,10 @@ import { Toaster } from "@/components/ui/sonner";
 import { Providers } from "@/components/providers";
 import { BRAND } from "@/lib/constants";
 import { getSeoSettings } from "@/lib/queries/seo";
+import { SEO_DEFAULTS } from "@/types/seo";
 import "./globals.css";
+
+export const dynamic = "force-dynamic";
 
 const playfair = localFont({
   variable: "--font-playfair",
@@ -50,7 +53,12 @@ const inter = localFont({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await getSeoSettings();
+  let settings = SEO_DEFAULTS;
+  try {
+    settings = await getSeoSettings();
+  } catch (error) {
+    console.error("Failed to load SEO settings, falling back to defaults:", error);
+  }
   const siteUrl = new URL("https://zhannajewels.in");
 
   const defaultTitle = settings.siteTitle || `${BRAND.name} | ${BRAND.tagline}`;

@@ -3,6 +3,8 @@ import { ArrowLeft, Gem, Sparkles } from "lucide-react";
 import { BrandLogo } from "@/components/shared/brand-logo";
 import { BRAND } from "@/lib/constants";
 
+export const dynamic = "force-dynamic";
+
 export default function NotFound() {
   return (
     <main className="relative flex min-h-screen flex-col overflow-hidden bg-navy-deep text-ivory">

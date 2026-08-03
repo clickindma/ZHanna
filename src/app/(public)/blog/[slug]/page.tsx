@@ -5,6 +5,8 @@ import { ArrowLeft, Calendar, Eye, Tag, User } from "lucide-react";
 import { Reveal } from "@/components/shared/reveal";
 import { getBlogBySlug, getRelatedBlogs } from "@/lib/queries/blogs";
 
+export const dynamic = "force-dynamic";
+
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
 }

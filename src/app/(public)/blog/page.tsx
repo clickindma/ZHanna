@@ -6,6 +6,8 @@ import { Reveal } from "@/components/shared/reveal";
 import { getBlogs, getBlogCategories } from "@/lib/queries/blogs";
 import { BlogSearch } from "@/components/blog/blog-search";
 
+export const dynamic = "force-dynamic";
+
 interface BlogPageProps {
   searchParams: Promise<{ page?: string; category?: string; search?: string }>;
 }

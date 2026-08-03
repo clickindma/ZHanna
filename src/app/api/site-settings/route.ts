@@ -3,8 +3,7 @@ import { dbConnect } from "@/lib/db";
 import { SiteSettings } from "@/models";
 import { BRAND, NAV_LINKS, COMPANY_LINKS } from "@/lib/constants";
 
-// Revalidate every 60 seconds for ISR-like caching
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 function getDefaultSettings() {
   return {
