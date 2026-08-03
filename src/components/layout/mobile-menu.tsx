@@ -34,7 +34,7 @@ export function MobileMenu() {
           <Button
             variant="ghost"
             size="icon"
-            className="text-emerald-deep hover:bg-parchment md:hidden"
+            className="text-emerald-deep hover:bg-parchment lg:hidden"
             aria-label="Open menu"
           />
         }

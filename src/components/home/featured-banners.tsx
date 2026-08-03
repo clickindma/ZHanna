@@ -21,7 +21,7 @@ export function FeaturedBanners({ banners }: { banners: HomeBannerContent[] }) {
 
   return (
     <section id="featured" className="bg-snow">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-28">
         <div className="grid gap-6 md:grid-cols-2">
           {visible.map((banner, i) => {
             const displayTitle = titles[i] ?? banner.title;
@@ -39,7 +39,7 @@ export function FeaturedBanners({ banners }: { banners: HomeBannerContent[] }) {
               <Tilt3D maxTilt={4} scale={1.01} className="h-full rounded-xl">
                 <Link
                   href={banner.ctaHref}
-                  className="group relative block h-full min-h-[22rem] overflow-hidden rounded-xl transition-transform duration-500 hover:-translate-y-1 sm:min-h-[26rem]"
+                  className="group relative block h-full min-h-[20rem] overflow-hidden rounded-xl transition-transform duration-500 hover:-translate-y-1 sm:min-h-[26rem]"
                 >
                   {/* Background gradient fallback */}
                   <div className="absolute inset-0 bg-gradient-to-br from-navy-brand via-[#132d3e] to-teal" />
@@ -62,17 +62,17 @@ export function FeaturedBanners({ banners }: { banners: HomeBannerContent[] }) {
                   )}
 
                   {/* Content overlay */}
-                  <div className="relative flex h-full min-h-[22rem] flex-col justify-end p-8 sm:min-h-[26rem] sm:p-10">
+                  <div className="relative flex h-full min-h-[20rem] flex-col justify-end p-6 sm:min-h-[26rem] sm:p-10">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.4em] text-aqua">
                       {banner.eyebrow}
                     </p>
-                    <h3 className="mt-3 font-playfair text-3xl font-semibold leading-tight text-snow sm:text-4xl">
+                    <h3 className="mt-2.5 font-playfair text-2xl font-semibold leading-tight text-snow sm:mt-3 sm:text-4xl">
                       {displayTitle}
                     </h3>
-                    <p className="mt-3 max-w-sm text-sm leading-relaxed text-silver/80">
+                    <p className="mt-2.5 max-w-sm text-sm leading-relaxed text-silver/80 sm:mt-3">
                       {banner.subtitle}
                     </p>
-                    <span className="mt-6 inline-flex w-fit items-center gap-2 border-b border-aqua/50 pb-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-aqua transition-colors duration-300 group-hover:border-snow group-hover:text-snow">
+                    <span className="mt-5 inline-flex w-fit items-center gap-2 border-b border-aqua/50 pb-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-aqua transition-colors duration-300 group-hover:border-snow group-hover:text-snow sm:mt-6">
                       {banner.ctaLabel}
                       <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                     </span>

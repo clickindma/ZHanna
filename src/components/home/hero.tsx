@@ -73,7 +73,7 @@ export function Hero({ content, heroImages = [] }: HeroProps) {
       <div className="pointer-events-none absolute -right-32 top-1/4 h-[32rem] w-[32rem] rounded-full bg-turquoise/8 blur-[160px]" />
 
       {/* Content */}
-      <div className="relative flex min-h-[70vh] items-center px-4 sm:min-h-[80vh] sm:px-6 lg:min-h-[92vh] lg:px-8">
+      <div className="relative flex min-h-[72vh] items-center px-5 py-20 sm:min-h-[80vh] sm:px-6 sm:py-24 lg:min-h-[92vh] lg:px-8">
         <motion.div
           variants={container}
           initial="hidden"
@@ -84,7 +84,7 @@ export function Hero({ content, heroImages = [] }: HeroProps) {
             {/* Eyebrow */}
             <motion.p
               variants={fadeUp}
-              className="text-[11px] font-medium uppercase tracking-[0.35em] text-aqua/90"
+              className="text-[10px] font-medium uppercase tracking-[0.32em] text-aqua/90 sm:text-[11px] sm:tracking-[0.35em]"
             >
               {content.eyebrow || "Exclusive Collection"}
             </motion.p>
@@ -92,7 +92,7 @@ export function Hero({ content, heroImages = [] }: HeroProps) {
             {/* Headline */}
             <motion.h1
               variants={fadeUp}
-              className="mt-6 font-playfair text-4xl font-semibold leading-[1.08] tracking-tight text-snow sm:text-5xl md:text-6xl lg:text-7xl"
+              className="mt-5 font-playfair text-[2.4rem] font-semibold leading-[1.08] tracking-tight text-snow sm:mt-6 sm:text-5xl md:text-6xl lg:text-7xl"
             >
               The{" "}
               <RotatingText
@@ -109,16 +109,16 @@ export function Hero({ content, heroImages = [] }: HeroProps) {
             {/* Subheadline */}
             <motion.p
               variants={fadeUp}
-              className="mt-6 max-w-lg text-base leading-relaxed text-silver/85 sm:text-lg"
+              className="mt-5 max-w-lg text-[15px] leading-relaxed text-silver/85 sm:mt-6 sm:text-lg"
             >
               {content.subheadline || "Discover handcrafted artificial diamond & fashion jewellery that speaks of elegance, designed for every occasion."}
             </motion.p>
 
             {/* CTA */}
-            <motion.div variants={fadeUp} className="mt-9 flex flex-wrap gap-4">
+            <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:gap-4">
               <Link
                 href={content.ctaPrimaryHref || "/shop"}
-                className="group inline-flex items-center gap-2.5 bg-turquoise px-8 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-navy-brand transition-all duration-500 hover:-translate-y-0.5 hover:bg-aqua hover:shadow-[0_20px_50px_-12px_rgba(22,181,216,0.5)]"
+                className="group inline-flex w-full items-center justify-center gap-2.5 bg-turquoise px-8 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-navy-brand transition-all duration-500 hover:-translate-y-0.5 hover:bg-aqua hover:shadow-[0_20px_50px_-12px_rgba(22,181,216,0.5)] active:scale-[0.98] sm:w-auto"
               >
                 {content.ctaPrimaryLabel || "Shop Now"}
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -126,7 +126,7 @@ export function Hero({ content, heroImages = [] }: HeroProps) {
               {content.ctaSecondaryLabel && (
                 <Link
                   href={content.ctaSecondaryHref || "/shop?sort=newest"}
-                  className="inline-flex items-center gap-2 border border-silver/30 px-7 py-4 text-sm font-medium uppercase tracking-[0.15em] text-snow/90 backdrop-blur-sm transition-all duration-300 hover:border-aqua/50 hover:text-aqua"
+                  className="inline-flex w-full items-center justify-center gap-2 border border-silver/30 px-7 py-4 text-sm font-medium uppercase tracking-[0.15em] text-snow/90 backdrop-blur-sm transition-all duration-300 hover:border-aqua/50 hover:text-aqua active:scale-[0.98] sm:w-auto"
                 >
                   {content.ctaSecondaryLabel}
                 </Link>
@@ -138,7 +138,7 @@ export function Hero({ content, heroImages = [] }: HeroProps) {
           {images.length > 1 && (
             <motion.div
               variants={fadeUp}
-              className="mt-16 flex items-center gap-3"
+              className="mt-10 flex items-center gap-3 sm:mt-16"
             >
               {images.map((_, index) => (
                 <button

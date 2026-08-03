@@ -94,9 +94,9 @@ export function Footer({
       <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.03]" />
       <div className="pointer-events-none absolute -top-40 left-1/2 h-80 w-[40rem] -translate-x-1/2 rounded-full bg-teal/8 blur-[120px]" />
 
-      <div className="relative mx-auto max-w-7xl px-6 pb-8 pt-20 sm:px-8 lg:px-10">
+      <div className="relative mx-auto max-w-7xl px-5 pb-10 pt-14 sm:px-8 sm:pt-20 lg:px-10">
         {/* Main Grid */}
-        <div className="grid grid-cols-1 gap-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
           {/* Brand Column */}
           <div className="sm:col-span-2 lg:col-span-4">
             <Link href="/" aria-label="Zhanna — Home" className="inline-block">

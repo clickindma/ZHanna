@@ -3,6 +3,7 @@ import { AnnouncementBar } from "@/components/layout/announcement-bar";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { AccountNav } from "@/components/account/account-nav";
+import { BottomNav } from "@/components/layout/bottom-nav";
 import { getSessionUser } from "@/lib/admin";
 
 export default async function AccountLayout({
@@ -15,7 +16,7 @@ export default async function AccountLayout({
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col pb-[calc(5rem+env(safe-area-inset-bottom))] lg:pb-0">
       <AnnouncementBar />
       <Header />
       <main className="flex-1">
@@ -27,6 +28,7 @@ export default async function AccountLayout({
         </div>
       </main>
       <Footer />
+      <BottomNav />
     </div>
   );
 }

@@ -71,11 +71,11 @@ export function Header({ navLinks }: HeaderProps) {
           : "border-transparent bg-ivory/85 backdrop-blur-md"
       }`}
     >
-      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-2">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:h-[72px] sm:px-6 lg:px-8">
+        <div className="flex items-center gap-1.5">
           <MobileMenu />
           <Link href="/" aria-label="Zhanna — Home" className="transition-opacity hover:opacity-80">
-            <BrandLogo className="h-16 w-auto sm:h-20" priority />
+            <BrandLogo className="h-11 w-auto sm:h-20" priority />
           </Link>
         </div>
 
@@ -158,21 +158,21 @@ export function Header({ navLinks }: HeaderProps) {
             render={<Link href="/search" />}
             variant="ghost"
             size="icon"
-            className="hidden text-emerald-deep hover:bg-parchment sm:inline-flex"
+            className="inline-flex text-emerald-deep hover:bg-parchment"
             aria-label="Search"
           >
-            <Search className="h-[19px] w-[19px]" strokeWidth={1.6} />
+            <Search className="h-5 w-5 sm:h-[19px] sm:w-[19px]" strokeWidth={1.6} />
           </Button>
 
           {status === "loading" ? (
             <Button
               variant="ghost"
               size="icon"
-              className="hidden text-emerald-deep hover:bg-parchment sm:inline-flex"
+              className="inline-flex text-emerald-deep hover:bg-parchment"
               aria-label="Account"
             >
               <UserRound
-                className="h-[19px] w-[19px] animate-pulse"
+                className="h-5 w-5 animate-pulse sm:h-[19px] sm:w-[19px]"
                 strokeWidth={1.6}
               />
             </Button>
@@ -183,12 +183,12 @@ export function Header({ navLinks }: HeaderProps) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="hidden text-emerald-deep hover:bg-parchment sm:inline-flex"
+                    className="inline-flex text-emerald-deep hover:bg-parchment"
                     aria-label="Account"
                   />
                 }
               >
-                <UserRound className="h-[19px] w-[19px]" strokeWidth={1.6} />
+                <UserRound className="h-5 w-5 sm:h-[19px] sm:w-[19px]" strokeWidth={1.6} />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-60 rounded-xl border-champagne-deep p-1.5">
                 {isAuthenticated ? (

@@ -51,7 +51,7 @@ export function ProductCard({
           />
 
           {/* Badges */}
-          <div className="absolute top-3 left-3 flex flex-col items-start gap-1.5">
+          <div className="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5">
             {product.isNewArrival && (
               <Badge className="bg-emerald/90 px-2.5 py-1 text-[9px] font-semibold tracking-[0.18em] text-ivory uppercase backdrop-blur-sm shadow-sm">
                 New
@@ -73,13 +73,13 @@ export function ProductCard({
               // Wishlist functionality handled at page level
             }}
             aria-label="Add to wishlist"
-            className="absolute top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur-sm opacity-0 transition-all duration-300 group-hover:opacity-100 hover:bg-white hover:scale-110 hover:text-gold-dark"
+            className="absolute top-2.5 right-2.5 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur-sm transition-all duration-300 hover:bg-white hover:scale-110 hover:text-gold-dark sm:opacity-0 sm:group-hover:opacity-100"
           >
             <Heart className="h-4 w-4 text-emerald-deep" strokeWidth={1.8} />
           </button>
 
           {/* Hover Overlay */}
-          <div className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-emerald-deep/50 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+          <div className="absolute inset-0 hidden items-end justify-center bg-gradient-to-t from-emerald-deep/50 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 sm:flex">
             <span className="mb-5 inline-flex translate-y-2 items-center gap-1.5 rounded-full border border-gold/40 bg-white/95 px-5 py-2.5 text-[10px] font-semibold tracking-[0.2em] text-emerald-deep uppercase backdrop-blur-md shadow-md transition-transform duration-500 group-hover:translate-y-0">
               View piece
               <ArrowUpRight className="h-3.5 w-3.5" />
@@ -89,25 +89,25 @@ export function ProductCard({
         </Tilt3D>
 
         {/* Product Info */}
-        <div className="flex flex-1 flex-col pt-4 px-0.5">
-          <p className="text-[10px] font-semibold tracking-[0.24em] text-gold-dark uppercase">
+        <div className="flex flex-1 flex-col pt-3.5 px-0.5">
+          <p className="text-[9px] font-semibold tracking-[0.22em] text-gold-dark uppercase sm:text-[10px] sm:tracking-[0.24em]">
             {product.category?.name ?? "Zhanna"}
           </p>
-          <h3 className="mt-1.5 font-playfair text-[17px] leading-snug text-emerald-deep transition-colors duration-300 group-hover:text-gold-dark line-clamp-2">
+          <h3 className="mt-1.5 font-playfair text-[15px] leading-snug text-emerald-deep line-clamp-2 transition-colors duration-300 group-hover:text-gold-dark sm:text-[17px]">
             {product.name}
           </h3>
-          <div className="mt-2.5 flex flex-wrap items-baseline gap-x-2.5">
-            <span className="text-[15px] font-semibold text-emerald-deep">
+          <div className="mt-2 flex flex-wrap items-baseline gap-x-2.5">
+            <span className="text-[14px] font-semibold text-emerald-deep sm:text-[15px]">
               {formatPrice(product.price)}
             </span>
             {product.compareAtPrice != null && (
-              <span className="text-[13px] text-ink-soft line-through decoration-ink-soft/50">
+              <span className="text-[12px] text-ink-soft line-through decoration-ink-soft/50 sm:text-[13px]">
                 {formatPrice(product.compareAtPrice)}
               </span>
             )}
           </div>
           {product.materials.length > 0 && (
-            <p className="mt-2 text-[11px] text-muted-foreground line-clamp-1">
+            <p className="mt-2 hidden text-[11px] text-muted-foreground line-clamp-1 sm:block">
               {product.materials.slice(0, 3).join(" · ")}
             </p>
           )}

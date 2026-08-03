@@ -23,7 +23,7 @@ export async function CategoriesSection() {
 
   return (
     <section className="bg-snow">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-28">
         {/* Heading */}
         <div className="text-center">
           <h2 className="font-playfair text-3xl font-semibold tracking-tight text-charcoal-brand sm:text-4xl lg:text-5xl">

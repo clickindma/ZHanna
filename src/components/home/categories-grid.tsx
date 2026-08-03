@@ -56,7 +56,7 @@ export function CategoriesGrid({ categories }: { categories: CategoryItem[] }) {
                 />
               ) : (
                 <div className="flex h-full items-center justify-center">
-                  <span className="font-display text-6xl italic text-teal/20 transition-all duration-500 group-hover:scale-110 group-hover:text-teal/40">
+                  <span className="font-display text-5xl italic text-teal/20 transition-all duration-500 group-hover:scale-110 group-hover:text-teal/40 sm:text-6xl">
                     {category.name[0]}
                   </span>
                 </div>
@@ -67,11 +67,11 @@ export function CategoriesGrid({ categories }: { categories: CategoryItem[] }) {
             </Tilt3D>
 
             {/* Name */}
-            <h3 className="mt-4 text-center font-playfair text-base font-medium text-charcoal-brand transition-colors duration-300 group-hover:text-teal">
+            <h3 className="mt-3.5 text-center font-playfair text-[15px] font-medium text-charcoal-brand transition-colors duration-300 group-hover:text-teal sm:mt-4 sm:text-base">
               {category.name}
             </h3>
             {category.productCount != null && category.productCount > 0 && (
-              <p className="mt-1 text-[11px] text-slate-brand">
+              <p className="mt-0.5 text-[11px] text-slate-brand sm:mt-1">
                 {category.productCount} pieces
               </p>
             )}
