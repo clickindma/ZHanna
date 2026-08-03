@@ -19,7 +19,12 @@ function mergeListItem<T extends object>(
   const out: T[] = [];
   for (let i = 0; i < count; i += 1) {
     const item = saved?.[i];
-    out.push(item != null ? ({ ...defaults[i], ...item } as T) : defaults[i]);
+    const merged = item != null ? ({ ...defaults[i], ...item } as T) : defaults[i];
+    const savedImage = (item as { image?: string | null } | undefined)?.image;
+    if (savedImage == null || savedImage === "") {
+      (merged as { image: string | null }).image = (defaults[i] as { image: string | null }).image;
+    }
+    out.push(merged);
   }
   return out;
 }
@@ -84,7 +89,7 @@ export async function getHomepageContent(): Promise<HomepageContent & { heroImag
       ctaSubtitle: "Explore our handcrafted collection of artificial diamond jewellery",
       ctaButtonLabel: "Shop Now",
       ctaButtonHref: "/shop",
-      ctaImage: "",
+      ctaImage: "/brand/cta-banner.jpg",
     };
   }
 
@@ -116,6 +121,6 @@ export async function getHomepageContent(): Promise<HomepageContent & { heroImag
     ctaSubtitle: doc.ctaSubtitle || "Explore our handcrafted collection of artificial diamond jewellery",
     ctaButtonLabel: doc.ctaButtonLabel || "Shop Now",
     ctaButtonHref: doc.ctaButtonHref || "/shop",
-    ctaImage: doc.ctaImage || "",
+    ctaImage: doc.ctaImage || "/brand/cta-banner.jpg",
   };
 }

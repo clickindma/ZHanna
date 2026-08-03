@@ -4,6 +4,14 @@ import { getCategories } from "@/lib/queries/categories";
 import { CATEGORIES } from "@/lib/constants";
 import { CategoriesGrid } from "@/components/home/categories-grid";
 
+const CATEGORY_IMAGES: Record<string, string> = {
+  rings: "/brand/category-rings.jpg",
+  earrings: "/brand/category-earrings.jpg",
+  bracelets: "/brand/category-bracelets.jpg",
+  pendants: "/brand/category-pendants.jpg",
+  bridal: "/brand/category-bridal.jpg",
+};
+
 export async function CategoriesSection() {
   const dbCategories = await getCategories();
   const categories =
@@ -12,13 +20,13 @@ export async function CategoriesSection() {
           name: c.name,
           slug: c.slug,
           productCount: c.productCount,
-          image: null as string | null,
+          image: (CATEGORY_IMAGES[c.slug] as string | null) ?? null,
         }))
       : [...CATEGORIES].map((c) => ({
           name: c.name,
           slug: c.slug,
           productCount: 0,
-          image: null as string | null,
+          image: (CATEGORY_IMAGES[c.slug] as string | null) ?? null,
         }));
 
   return (
