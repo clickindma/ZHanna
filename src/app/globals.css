@@ -1,0 +1,319 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-playfair);
+  --font-display: var(--font-cormorant);
+  --font-playfair: var(--font-playfair);
+  --font-cormorant: var(--font-cormorant);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--navy-deep);
+  --color-navy-mid: var(--navy-mid);
+  --color-gold: var(--gold);
+  --color-gold-dark: var(--gold-dark);
+  --color-gold-light: var(--gold-light);
+  --color-champagne: var(--champagne);
+  --color-champagne-deep: var(--champagne-deep);
+  --color-sapphire: var(--sapphire);
+  --color-sapphire-mid: var(--sapphire-mid);
+  --color-sapphire-light: var(--sapphire-light);
+
+  /* Luxe re-skin palette */
+  --color-ivory: var(--ivory);
+  --color-parchment: var(--parchment);
+  --color-cream: var(--cream);
+  --color-emerald: var(--emerald);
+  --color-emerald-deep: var(--emerald-deep);
+  --color-emerald-mist: var(--emerald-mist);
+  --color-charcoal: var(--charcoal);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-gold-soft: var(--gold-soft);
+  --color-rose-mist: var(--rose-mist);
+
+  /* Official Zhanna brand colors */
+  --color-turquoise: var(--turquoise);
+  --color-teal: var(--teal);
+  --color-aqua: var(--aqua);
+  --color-navy-brand: var(--navy-brand);
+  --color-snow: var(--snow);
+  --color-ice: var(--ice);
+  --color-silver: var(--silver);
+  --color-charcoal-brand: var(--charcoal-brand);
+  --color-slate-brand: var(--slate-brand);
+  --color-champagne-silver: var(--champagne-silver);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --animate-marquee: marquee 36s linear infinite;
+  --animate-shimmer: shimmer 2.8s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes shimmer {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
+  }
+}
+
+:root {
+  --background: var(--snow);
+  --foreground: var(--navy);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--navy);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--navy);
+  --primary: var(--gold);
+  --primary-foreground: #ffffff;
+  --secondary: var(--champagne);
+  --secondary-foreground: var(--navy);
+  --muted: var(--champagne);
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--champagne);
+  --accent-foreground: var(--navy);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: var(--champagne-deep);
+  --input: var(--champagne-deep);
+  --ring: var(--gold);
+  --chart-1: var(--sapphire);
+  --chart-2: var(--gold);
+  --chart-3: var(--navy-mid);
+  --chart-4: var(--gold-dark);
+  --chart-5: var(--sapphire-mid);
+  --radius: 0.375rem;
+  --sidebar: var(--navy-deep);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: var(--gold);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: oklch(1 0 0 / 8%);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: var(--gold);
+
+  /* Official Zhanna brand palette */
+  --turquoise: #16b5d8; /* Primary Brand — Turquoise Blue */
+  --teal: #0e8fb0; /* Dark Brand Blue — Deep Teal */
+  --aqua: #6fd7ee; /* Light Aqua — Soft Aqua */
+  --navy-brand: #0f172a; /* Luxury Navy — Midnight Navy */
+  --snow: #f8fcfd; /* Premium White — Snow White */
+  --ice: #edf9fc; /* Light Background — Ice Blue */
+  --silver: #d8e7ec; /* Border — Soft Silver */
+  --charcoal-brand: #1f2937; /* Heading — Rich Charcoal */
+  --slate-brand: #64748b; /* Paragraph — Slate Gray */
+  --champagne-silver: #c9d7dd; /* Premium Accent — Champagne Silver */
+
+  /* Zhanna semantic tokens remapped to the official palette */
+  --navy: #0f172a;
+  --navy-deep: #0b1522;
+  --navy-mid: #1e293b;
+  --gold: #16b5d8;
+  --gold-dark: #0e8fb0;
+  --gold-light: #6fd7ee;
+  --champagne: #edf9fc;
+  --champagne-deep: #d8e7ec;
+  --sapphire: #0e8fb0;
+  --sapphire-mid: #16b5d8;
+  --sapphire-light: #6fd7ee;
+  --ink-muted: #64748b;
+
+  /* Luxe re-skin palette (remapped to turquoise/ice/navy) */
+  --ivory: #f8fcfd;
+  --parchment: #edf9fc;
+  --cream: #ffffff;
+  --emerald: #0f172a;
+  --emerald-deep: #0b1522;
+  --emerald-mist: #e8f6fb;
+  --charcoal: #0f172a;
+  --ink: #1f2937;
+  --ink-soft: #64748b;
+  --gold-soft: #c9d7dd;
+  --rose-mist: #eaf6fb;
+}
+
+.dark {
+  --background: var(--navy-deep);
+  --foreground: oklch(0.985 0 0);
+  --card: var(--navy);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: var(--navy);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: var(--navy-deep);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: var(--gold);
+  --chart-1: var(--sapphire-mid);
+  --chart-2: var(--gold);
+  --chart-3: var(--sapphire-light);
+  --chart-4: var(--gold-light);
+  --chart-5: var(--sapphire);
+  --sidebar: var(--navy-deep);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: var(--gold);
+  --sidebar-primary-foreground: var(--navy-deep);
+  --sidebar-accent: oklch(1 0 0 / 8%);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: var(--gold);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans scroll-smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "cv01";
+  }
+  ::selection {
+    @apply bg-gold/90 text-white;
+  }
+}
+
+@utility text-gradient-gold {
+  background-image: linear-gradient(115deg, #8be0f2 0%, #16b5d8 42%, #6fd7ee 62%, #0e8fb0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-gradient-sapphire {
+  background-image: linear-gradient(115deg, #9be7f7 0%, #16b5d8 45%, #6fd7ee 75%, #0e8fb0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility hairline-gold {
+  background-image: linear-gradient(90deg, transparent, var(--gold), transparent);
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@utility text-gradient-emerald {
+  background-image: linear-gradient(115deg, #2b4a6f 0%, #0f172a 45%, #1f2937 75%, #0b1522 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility hairline-ivory {
+  background-image: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@utility btn-glow {
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-glow:hover {
+  box-shadow: 0 0 20px rgba(22, 181, 216, 0.4), 0 0 40px rgba(22, 181, 216, 0.15);
+  transform: translateY(-1px) scale(1.02);
+}
+
+@utility bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+@utility shimmer-line {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  animation: var(--animate-shimmer);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
