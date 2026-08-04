@@ -36,7 +36,8 @@ export async function POST(request: Request) {
 
   try {
     await dbConnect();
-    const category = await Category.create(parsed.data);
+    const data = parsed.data;
+    const category = await Category.create({ ...data, image: data.image ?? undefined });
     return NextResponse.json({ category }, { status: 201 });
   } catch (error) {
     const message =

@@ -33,7 +33,21 @@ export async function PUT(request: Request, { params }: RouteContext) {
 
   try {
     await dbConnect();
-    const category = await Category.findByIdAndUpdate(id, parsed.data, {
+
+    const data = parsed.data;
+    const update: Record<string, unknown> = {
+      name: data.name,
+      slug: data.slug,
+      description: data.description,
+      isActive: data.isActive,
+    };
+    if (data.image) {
+      update.image = data.image;
+    } else {
+      update.$unset = { image: 1 };
+    }
+
+    const category = await Category.findByIdAndUpdate(id, update, {
       new: true,
       runValidators: true,
     });

@@ -23,6 +23,7 @@ export async function getCategories(): Promise<CategoryWithCount[]> {
     name: category.name,
     slug: category.slug,
     description: category.description ?? null,
+    image: category.image ?? null,
     productCount: countByCategory.get(category._id.toString()) ?? 0,
   }));
 }

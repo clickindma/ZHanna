@@ -32,6 +32,7 @@ type LeanCategory = {
   name: string;
   slug: string;
   description?: string | null;
+  image?: string | null;
   isActive: boolean;
 };
 
@@ -131,6 +132,7 @@ export async function getAdminCategories(): Promise<AdminCategory[]> {
     name: category.name,
     slug: category.slug,
     description: category.description ?? null,
+    image: category.image ?? null,
     isActive: category.isActive,
     productCount: countByCategory.get(category._id.toString()) ?? 0,
   }));

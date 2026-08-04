@@ -32,6 +32,7 @@ export interface CategoryWithCount {
   name: string;
   slug: string;
   description: string | null;
+  image: string | null;
   productCount: number;
 }
 

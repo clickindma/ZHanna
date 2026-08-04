@@ -20,7 +20,7 @@ export async function CategoriesSection() {
           name: c.name,
           slug: c.slug,
           productCount: c.productCount,
-          image: (CATEGORY_IMAGES[c.slug] as string | null) ?? null,
+          image: (c.image ?? CATEGORY_IMAGES[c.slug]) ?? null,
         }))
       : [...CATEGORIES].map((c) => ({
           name: c.name,

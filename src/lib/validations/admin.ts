@@ -146,6 +146,14 @@ export const adminCategorySchema = z.object({
     .max(80, "Name must be under 80 characters"),
   slug: slugField,
   description: z.string().trim().max(200, "Description must be under 200 characters").optional(),
+  image: z
+    .union([
+      z.string().trim().max(500, "Image must be under 500 characters"),
+      z.literal(""),
+      z.null(),
+      z.undefined(),
+    ])
+    .transform((value) => (value ? value : null)),
   isActive: z.boolean().default(true),
 });
 

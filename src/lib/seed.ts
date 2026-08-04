@@ -213,6 +213,10 @@ export async function seedDatabase(): Promise<SeedSummary> {
   for (const categoryData of SEED_CATEGORIES) {
     const existing = await Category.findOne({ slug: categoryData.slug });
     if (existing) {
+      if (!existing.image && categoryData.image) {
+        existing.image = categoryData.image;
+        await existing.save();
+      }
       categoryIds.set(categoryData.slug, existing._id.toString());
       summary.categoriesSkipped += 1;
       continue;

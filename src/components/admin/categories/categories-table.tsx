@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,6 +26,7 @@ import {
   type AdminCategoryValues,
 } from "@/lib/validations/admin";
 import type { AdminCategory } from "@/types/admin";
+import { CategoryImageUploader } from "@/components/admin/categories/category-image-uploader";
 
 function slugify(value: string) {
   return value
@@ -40,6 +42,7 @@ function toFormValues(category?: AdminCategory): AdminCategoryInput {
     name: category?.name ?? "",
     slug: category?.slug ?? "",
     description: category?.description ?? "",
+    image: category?.image ?? "",
     isActive: category?.isActive ?? true,
   };
 }
@@ -167,13 +170,26 @@ export function CategoriesTable({ categories }: { categories: AdminCategory[] })
               {categories.map((category) => (
                 <TableRow key={category._id} className="hover:bg-slate-50">
                   <TableCell>
-                    <div>
-                      <p className="font-medium text-navy">{category.name}</p>
-                      {category.description && (
-                        <p className="max-w-xs truncate text-xs text-muted-foreground">
-                          {category.description}
-                        </p>
+                    <div className="flex items-center gap-3">
+                      {category.image && (
+                        <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-lg border border-slate-200 bg-slate-100">
+                          <Image
+                            src={category.image}
+                            alt=""
+                            fill
+                            sizes="44px"
+                            className="object-cover"
+                          />
+                        </div>
                       )}
+                      <div>
+                        <p className="font-medium text-navy">{category.name}</p>
+                        {category.description && (
+                          <p className="max-w-xs truncate text-xs text-muted-foreground">
+                            {category.description}
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </TableCell>
                   <TableCell className="font-mono text-xs text-slate-500">
@@ -288,6 +304,20 @@ export function CategoriesTable({ categories }: { categories: AdminCategory[] })
                   {...register("description")}
                 />
                 <FieldError message={errors.description?.message} />
+              </div>
+              <div>
+                <Label className="text-[11px] font-semibold tracking-[0.15em] text-navy uppercase">
+                  Feature Image
+                </Label>
+                <div className="mt-1.5">
+                  <CategoryImageUploader
+                    value={watch("image") ?? ""}
+                    onChange={(image) =>
+                      setValue("image", image, { shouldValidate: true })
+                    }
+                    disabled={isSubmitting}
+                  />
+                </div>
               </div>
               <label className="flex items-center gap-2.5 rounded-lg border border-slate-200 px-3 py-2.5 text-sm text-slate-700">
                 <Checkbox

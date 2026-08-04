@@ -7,11 +7,11 @@ export const SEED_ADMIN = {
 };
 
 export const SEED_CATEGORIES: Array<Omit<ICategory, "isActive"> & { isActive: boolean }> = [
-  { name: "Rings", slug: "rings", description: "Statement rings and everyday bands", isActive: true },
+  { name: "Rings", slug: "rings", description: "Statement rings and everyday bands", image: "/brand/category-rings.jpg", isActive: true },
   { name: "Necklaces", slug: "necklaces", description: "Chokers, chains and bridal neckpieces", isActive: true },
-  { name: "Earrings", slug: "earrings", description: "Studs, drops and chandbalis", isActive: true },
-  { name: "Bracelets", slug: "bracelets", description: "Cuffs, bangles and tennis chains", isActive: true },
-  { name: "Pendants", slug: "pendants", description: "Solitaires, lockets and celestial charms", isActive: true },
+  { name: "Earrings", slug: "earrings", description: "Studs, drops and chandbalis", image: "/brand/category-earrings.jpg", isActive: true },
+  { name: "Bracelets", slug: "bracelets", description: "Cuffs, bangles and tennis chains", image: "/brand/category-bracelets.jpg", isActive: true },
+  { name: "Pendants", slug: "pendants", description: "Solitaires, lockets and celestial charms", image: "/brand/category-pendants.jpg", isActive: true },
 ];
 
 type SeedProduct = Omit<
