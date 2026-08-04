@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { useState } from "react";
 import { BrandLogo } from "@/components/shared/brand-logo";
 import { PartnerBrands } from "@/components/layout/partner-brands";
 import {
@@ -12,7 +13,7 @@ import {
   WhatsAppIcon,
   YoutubeIcon,
 } from "@/components/shared/social-icons";
-import { BRAND } from "@/lib/constants";
+import { BRAND, CATEGORY_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 interface FooterLink {
@@ -49,87 +50,71 @@ const SOCIAL_ICON_MAP: Record<string, React.ElementType> = {
   pinterest: PinterestIcon,
 };
 
-const FOOTER_COLUMNS: FooterLinkGroup[] = [
-  {
-    heading: "Shop by Categories",
-    links: [
-      { label: "All Jewellery", href: "/shop" },
-      { label: "Rings", href: "/shop?category=rings" },
-      { label: "Earrings", href: "/shop?category=earrings" },
-      { label: "Necklaces", href: "/shop?category=necklaces" },
-      { label: "Bracelets", href: "/shop?category=bracelets" },
-      { label: "Pendants", href: "/shop?category=pendants" },
-      { label: "Bridal Collection", href: "/shop" },
-      { label: "Men's Jewellery", href: "/shop" },
-    ],
-  },
-  {
-    heading: "About Us",
-    links: [
-      { label: "About Zhanna", href: "/about" },
-      { label: "Our Story", href: "/about" },
-      { label: "Contact Us", href: "/contact" },
-      { label: "FAQs", href: "/contact" },
-      { label: "Our Journal", href: "/blog" },
-    ],
-  },
-  {
-    heading: "Customer Service",
-    links: [
-      { label: "Shipping & Delivery", href: "/shipping" },
-      { label: "Returns & Exchanges", href: "/returns" },
-      { label: "Size Guide", href: "/shipping" },
-      { label: "Track Order", href: "/orders" },
-      { label: "Care Guide", href: "/blog" },
-      { label: "Order Help", href: "/contact" },
-    ],
-  },
-  {
-    heading: "Learning Center",
-    links: [
-      { label: "How to Choose a Diamond", href: "/blog" },
-      { label: "Jewellery Care", href: "/blog" },
-      { label: "Certification", href: "/about" },
-      { label: "Styling Guide", href: "/blog" },
-      { label: "Gift Guide", href: "/blog" },
-    ],
-  },
-  {
-    heading: "Others",
-    links: [
-      { label: "Privacy Policy", href: "/privacy-policy" },
-      { label: "Terms of Service", href: "/terms" },
-      { label: "Sitemap", href: "/shop" },
-      { label: "Wishlist", href: "/account/wishlist" },
-      { label: "My Account", href: "/account" },
-      { label: "Sign In", href: "/login" },
-    ],
-  },
+const DEFAULT_PRODUCT_LINKS: FooterLink[] = [
+  ...CATEGORY_LINKS.map((link) => ({ label: link.label, href: link.href })),
+];
+
+const DEFAULT_COMPANY_LINKS: FooterLink[] = [
+  { label: "About Zhanna", href: "/about" },
+  { label: "Our Story", href: "/about" },
+  { label: "Contact Us", href: "/contact" },
+  { label: "Our Journal", href: "/blog" },
 ];
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-function FooterColumn({ group }: { group: FooterLinkGroup }) {
+function FooterLinkItem({ link }: { link: FooterLink }) {
   return (
-    <div>
-      <h3 className="relative text-[11px] font-semibold uppercase tracking-[0.3em] text-turquoise">
-        {group.heading}
-        <span className="absolute -bottom-1.5 left-0 h-px w-8 bg-gradient-to-r from-turquoise to-transparent" />
-      </h3>
-      <ul className="mt-6 space-y-3">
-        {group.links.map((link) => (
-          <li key={link.label}>
-            <Link
-              href={link.href}
-              className="group/link relative inline-block text-[13px] text-white/55 transition-colors duration-300 hover:text-turquoise"
-            >
-              {link.label}
-              <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-turquoise/60 transition-all duration-300 group-hover/link:w-full" />
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <li>
+      <Link
+        href={link.href}
+        className="group/link inline-flex items-center gap-1 text-[13px] text-white/55 transition-all duration-300 hover:translate-x-[3px] hover:text-turquoise"
+      >
+        <span className="h-px w-0 bg-turquoise transition-all duration-300 group-hover/link:w-2" />
+        {link.label}
+      </Link>
+    </li>
+  );
+}
+
+function NewsletterForm() {
+  const [email, setEmail] = useState("");
+  const [done, setDone] = useState(false);
+
+  function onSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    if (!email.trim()) return;
+    setDone(true);
+  }
+
+  if (done) {
+    return (
+      <div className="rounded-xl border border-turquoise/30 bg-turquoise/10 px-5 py-4 text-sm text-turquoise">
+        Thank you for subscribing — welcome to the Zhanna family!
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={onSubmit} className="flex w-full items-stretch overflow-hidden rounded-xl border border-white/15 bg-white/5 focus-within:border-turquoise/50">
+      <input
+        type="email"
+        required
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+        placeholder="Your email address"
+        aria-label="Email for newsletter"
+        className="w-full min-w-0 bg-transparent px-4 py-3 text-sm text-white outline-none placeholder:text-white/35"
+      />
+      <button
+        type="submit"
+        aria-label="Subscribe to newsletter"
+        className="flex shrink-0 cursor-pointer items-center gap-1.5 bg-turquoise px-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-navy-brand transition-all duration-300 hover:bg-aqua hover:brightness-110 sm:px-5"
+      >
+        <span className="hidden sm:inline">Join</span>
+        <ArrowRight className="h-4 w-4" strokeWidth={2} />
+      </button>
+    </form>
   );
 }
 
@@ -191,58 +176,27 @@ export function Footer({
         transition={{ duration: 0.8, ease: EASE }}
         className="relative overflow-hidden bg-navy-brand text-white"
       >
-        {/* Decorative elements */}
         <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.03]" />
         <div className="pointer-events-none absolute -top-40 left-1/2 h-80 w-[40rem] -translate-x-1/2 rounded-full bg-teal/8 blur-[120px]" />
         <div className="pointer-events-none absolute right-0 bottom-0 h-64 w-64 rounded-full bg-turquoise/6 blur-[100px]" />
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-turquoise/50 to-transparent" />
 
-        <div className="relative mx-auto max-w-7xl px-5 pb-10 pt-14 sm:px-8 sm:pt-16 lg:px-10">
-          {/* Brand intro row */}
-          <div className="flex flex-col items-center gap-8 text-center lg:flex-row lg:items-start lg:justify-between lg:text-left">
-            <div className="max-w-md">
+        <div className="relative mx-auto max-w-7xl px-5 pt-16 pb-10 sm:px-8 sm:pt-20 lg:px-10">
+          {/* 4-column layout */}
+          <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1.1fr_1.3fr] lg:gap-10">
+            {/* Brand + Social */}
+            <div>
               <Link href="/" aria-label="Zhanna — Home" className="inline-block">
-                <BrandLogo className="h-12 w-auto sm:h-16" />
+                <BrandLogo className="h-14 w-auto" />
               </Link>
-              <p className="mt-5 text-[13px] leading-relaxed text-white/50 sm:text-[14px]">
+              <p className="mt-5 max-w-xs text-[13px] leading-relaxed text-white/50 sm:text-[14px]">
                 {footerDescription}
               </p>
-            </div>
 
-            <div className="flex flex-col items-center gap-3 lg:items-end">
-              <p className="flex items-center gap-3 text-[13px] text-white/55">
-                <Mail className="h-4 w-4 shrink-0 text-turquoise/70" />
-                {email}
-              </p>
-              <p className="flex items-center gap-3 text-[13px] text-white/55">
-                <Phone className="h-4 w-4 shrink-0 text-turquoise/70" />
-                {phone}
-              </p>
-              <p className="flex items-center gap-3 text-[13px] text-white/55">
-                <MapPin className="h-4 w-4 shrink-0 text-turquoise/70" />
-                {address}
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-12 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-          {/* Main 5-column grid */}
-          <div className="grid grid-cols-2 gap-x-6 gap-y-12 py-12 sm:grid-cols-3 lg:grid-cols-5">
-            {FOOTER_COLUMNS.map((group) => (
-              <FooterColumn key={group.heading} group={group} />
-            ))}
-          </div>
-
-          <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-          {/* Social + Payment row */}
-          <div className="flex flex-col items-center justify-between gap-10 py-10 lg:flex-row lg:gap-8">
-            <div className="flex flex-col items-center gap-4 lg:items-start">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-turquoise">
+              <p className="mt-7 text-[10px] font-semibold uppercase tracking-[0.3em] text-turquoise">
                 Follow Us On
               </p>
-              <div className="flex items-center gap-2.5">
+              <div className="mt-4 flex items-center gap-2.5">
                 {socials.map((social) => {
                   const Icon = SOCIAL_ICON_MAP[social.icon] || InstagramIcon;
                   const isLink = Boolean(social.href);
@@ -254,7 +208,7 @@ export function Footer({
                       target="_blank"
                       rel="noreferrer"
                       aria-label={social.label}
-                      className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 text-white/60 transition-all duration-400 hover:-translate-y-0.5 hover:border-turquoise/50 hover:text-turquoise hover:shadow-[0_4px_16px_-4px_rgba(22,181,216,0.3)]"
+                      className="flex h-10 w-10 items-center justify-center rounded-full border border-white/12 text-white/60 transition-all duration-500 hover:scale-110 hover:border-turquoise hover:bg-turquoise hover:text-navy-brand hover:shadow-[0_6px_20px_-4px_rgba(22,181,216,0.5)]"
                     >
                       {inner}
                     </a>
@@ -272,11 +226,70 @@ export function Footer({
               </div>
             </div>
 
-            <div className="flex flex-col items-center gap-4 lg:items-end">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-turquoise">
-                We Accept
+            {/* Product Links */}
+            <div>
+              <h3 className="relative text-[11px] font-semibold uppercase tracking-[0.3em] text-turquoise">
+                Shop by Category
+                <span className="absolute -bottom-1.5 left-0 h-px w-8 bg-gradient-to-r from-turquoise to-transparent" />
+              </h3>
+              <ul className="mt-7 space-y-3">
+                {DEFAULT_PRODUCT_LINKS.map((link) => (
+                  <FooterLinkItem key={link.href} link={link} />
+                ))}
+              </ul>
+            </div>
+
+            {/* About Us */}
+            <div>
+              <h3 className="relative text-[11px] font-semibold uppercase tracking-[0.3em] text-turquoise">
+                About Us
+                <span className="absolute -bottom-1.5 left-0 h-px w-8 bg-gradient-to-r from-turquoise to-transparent" />
+              </h3>
+              <ul className="mt-7 space-y-3">
+                {DEFAULT_COMPANY_LINKS.map((link) => (
+                  <FooterLinkItem key={link.href} link={link} />
+                ))}
+              </ul>
+              <div className="mt-6 space-y-3">
+                <p className="flex items-start gap-3 text-[13px] leading-relaxed text-white/55">
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-turquoise/70" />
+                  {address}
+                </p>
+                <p className="flex items-center gap-3 text-[13px] text-white/55">
+                  <Phone className="h-4 w-4 shrink-0 text-turquoise/70" />
+                  {phone}
+                </p>
+                <p className="flex items-center gap-3 text-[13px] text-white/55">
+                  <Mail className="h-4 w-4 shrink-0 text-turquoise/70" />
+                  {email}
+                </p>
+              </div>
+            </div>
+
+            {/* Newsletter */}
+            <div>
+              <h3 className="relative text-[11px] font-semibold uppercase tracking-[0.3em] text-turquoise">
+                Join Our Circle
+                <span className="absolute -bottom-1.5 left-0 h-px w-8 bg-gradient-to-r from-turquoise to-transparent" />
+              </h3>
+              <p className="mt-7 text-[13px] leading-relaxed text-white/50">
+                Be the first to know about new collections, private sales and styling stories.
               </p>
-              <div className="flex flex-wrap items-center justify-center gap-2 lg:justify-end">
+              <div className="mt-5">
+                <NewsletterForm />
+              </div>
+              <p className="mt-4 text-[11px] text-white/35">
+                No spam, ever. Unsubscribe anytime.
+              </p>
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div className="mt-14 border-t border-white/10 pt-8">
+            <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
+              <p className="text-center text-[12px] text-white/40 lg:text-left">{copyright}</p>
+
+              <div className="flex flex-wrap items-center justify-center gap-2">
                 <PaymentChip>
                   <span className="text-[13px] font-bold tracking-widest italic">VISA</span>
                 </PaymentChip>
@@ -291,44 +304,39 @@ export function Footer({
                 </PaymentChip>
               </div>
             </div>
-          </div>
 
-          <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-          {/* Bottom copyright bar */}
-          <div className="flex flex-col items-center justify-between gap-5 pt-7 text-center md:flex-row md:text-left">
-            <div className="space-y-1.5">
-              <p className="text-[12px] text-white/40">{copyright}</p>
-              <p className="text-[11px] text-white/30">
-                Designed &amp; Developed by{" "}
-                <span className="text-turquoise/70">Clickin Digital Marketing Agency</span>{" "}
-                — by <span className="text-white/45">Rahul Singh</span>
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
               <Link
                 href="/privacy-policy"
-                className="group/link relative text-[11px] uppercase tracking-[0.16em] text-white/40 transition-colors duration-300 hover:text-turquoise"
+                className="text-[11px] uppercase tracking-[0.16em] text-white/40 transition-colors duration-300 hover:text-turquoise"
               >
                 Privacy Policy
-                <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-turquoise/60 transition-all duration-300 group-hover/link:w-full" />
               </Link>
               <Link
                 href="/terms"
-                className="group/link relative text-[11px] uppercase tracking-[0.16em] text-white/40 transition-colors duration-300 hover:text-turquoise"
+                className="text-[11px] uppercase tracking-[0.16em] text-white/40 transition-colors duration-300 hover:text-turquoise"
               >
                 Terms
-                <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-turquoise/60 transition-all duration-300 group-hover/link:w-full" />
               </Link>
               <Link
-                href="/shop"
-                className="group/link relative text-[11px] uppercase tracking-[0.16em] text-white/40 transition-colors duration-300 hover:text-turquoise"
+                href="/shipping"
+                className="text-[11px] uppercase tracking-[0.16em] text-white/40 transition-colors duration-300 hover:text-turquoise"
               >
-                Sitemap
-                <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-turquoise/60 transition-all duration-300 group-hover/link:w-full" />
+                Shipping
+              </Link>
+              <Link
+                href="/returns"
+                className="text-[11px] uppercase tracking-[0.16em] text-white/40 transition-colors duration-300 hover:text-turquoise"
+              >
+                Returns
               </Link>
             </div>
+
+            <p className="mt-7 text-center text-[11px] text-white/30">
+              Designed &amp; Developed by{" "}
+              <span className="text-turquoise/70">Clickin Digital Marketing Agency</span> — by{" "}
+              <span className="text-white/45">Rahul Singh</span>
+            </p>
           </div>
         </div>
       </motion.footer>

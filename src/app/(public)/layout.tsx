@@ -1,8 +1,8 @@
-import { AnnouncementBar } from "@/components/layout/announcement-bar";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { FooterMarquee } from "@/components/layout/footer-marquee";
 import { BottomNav } from "@/components/layout/bottom-nav";
+import { BackToTop } from "@/components/layout/back-to-top";
 import { getSiteSettings } from "@/lib/queries/site-settings";
 
 export const dynamic = "force-dynamic";
@@ -26,7 +26,6 @@ export default async function ShopLayout({
 
   return (
     <div className="flex min-h-screen flex-col pb-[calc(5rem+env(safe-area-inset-bottom))] lg:pb-0">
-      <AnnouncementBar />
       <Header navLinks={navLinks} />
       <main className="flex-1">{children}</main>
       <FooterMarquee />
@@ -40,6 +39,7 @@ export default async function ShopLayout({
         address={settings.address}
       />
       <BottomNav />
+      <BackToTop />
     </div>
   );
 }

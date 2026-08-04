@@ -312,15 +312,21 @@
 @utility shimmer-line {
   position: relative;
   overflow: hidden;
-}
-
-.shimmer-line::after {
+}.shimmer-line::after {
   content: "";
   position: absolute;
   inset: 0;
   width: 40%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
   animation: var(--animate-shimmer);
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

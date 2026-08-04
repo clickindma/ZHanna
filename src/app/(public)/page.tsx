@@ -1,70 +1,88 @@
 import { Hero } from "@/components/home/hero";
-import { CategoriesMarquee } from "@/components/home/categories-marquee";
-import { MarqueeStrip } from "@/components/home/marquee-strip";
-import { FeaturedBanners } from "@/components/home/featured-banners";
-import { CategoriesSection } from "@/components/home/categories-section";
-import { BestSellers } from "@/components/home/best-sellers";
-import { TrustBadges } from "@/components/home/trust-badges";
-import { CampaignSection } from "@/components/home/campaign-section";
-import { ShopByGender } from "@/components/home/shop-by-gender";
-import { AboutBrand } from "@/components/home/about-brand";
-import { CtaBanner } from "@/components/home/cta-banner";
-import { NewsletterSection } from "@/components/home/newsletter";
-import { SectionReveal } from "@/components/shared/section-reveal";
+import { PromoStrip } from "@/components/home/promo-strip";
+import { ProductCarousel } from "@/components/home/product-carousel";
+import { FeaturedBanner } from "@/components/home/featured-banner";
+import { ProductTabs } from "@/components/home/product-tabs";
+import { CategoryBanners } from "@/components/home/category-banners";
+import { FeaturesStrip } from "@/components/home/features-strip";
 import { getHomepageContent } from "@/lib/queries/homepage";
+import { getProducts } from "@/lib/queries/products";
+import { getCategories } from "@/lib/queries/categories";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const content = await getHomepageContent();
 
+  const [categories, newArrivals, { products: featured }] = await Promise.all([
+    getCategories(),
+    getProducts({ newArrival: true, sort: "newest", limit: 10 }),
+    getProducts({ featured: true, sort: "newest", limit: 1 }),
+  ]);
+
+  const totalProducts = categories.reduce((sum, category) => sum + category.productCount, 0);
+  const tabCategories = categories.map((category) => ({
+    slug: category.slug,
+    name: category.name,
+  }));
+
+  const productOfMonth = featured[0] ?? null;
+
   return (
     <>
-      <Hero content={content.hero} heroImages={content.heroImages} />
-      <CategoriesMarquee />
-      <MarqueeStrip />
+      <Hero
+        content={content.hero}
+        heroImages={content.heroImages}
+        categories={categories}
+        productOfMonth={productOfMonth}
+      />
 
-      <SectionReveal style="float">
-        <FeaturedBanners banners={content.featuredBanners} />
-      </SectionReveal>
+      <PromoStrip />
 
-      <SectionReveal style="flip" delay={0.05}>
-        <CategoriesSection />
-      </SectionReveal>
+      <ProductCarousel
+        title="New Arrival"
+        subtitle="Freshly crafted pieces, just landed in the collection."
+        products={newArrivals.products}
+        viewAllHref="/shop?newArrival=true"
+      />
 
-      <SectionReveal style="wave">
-        <BestSellers />
-      </SectionReveal>
+      <FeaturedBanner
+        eyebrow="The Craft"
+        title={content.ctaTitle}
+        subtitle={content.ctaSubtitle}
+        buttonLabel={content.ctaButtonLabel}
+        buttonHref={content.ctaButtonHref}
+        image={content.ctaImage}
+      />
 
-      <SectionReveal style="rise" delay={0.05}>
-        <TrustBadges items={content.trustBadges} />
-      </SectionReveal>
+      <ProductTabs
+        title="New Products"
+        subtitle="Our latest designs, refreshed every week."
+        categories={tabCategories}
+        sort="newest"
+        viewAllHref="/shop?sort=newest"
+      />
 
-      <SectionReveal style="flip">
-        <CampaignSection collections={content.collections} />
-      </SectionReveal>
+      <CategoryBanners collections={content.collections} />
 
-      <SectionReveal style="float">
-        <ShopByGender tiles={content.genderTiles} />
-      </SectionReveal>
+      <ProductTabs
+        title="Trending Products"
+        subtitle="The pieces everyone is adding to their wishlist."
+        categories={tabCategories}
+        sort="newest"
+        featured
+        viewAllHref="/shop?sort=featured"
+      />
 
-      <SectionReveal style="wave">
-        <AboutBrand about={content.about} />
-      </SectionReveal>
-
-      <SectionReveal style="rise">
-        <CtaBanner
-          title={content.ctaTitle}
-          subtitle={content.ctaSubtitle}
-          buttonLabel={content.ctaButtonLabel}
-          buttonHref={content.ctaButtonHref}
-          image={content.ctaImage}
-        />
-      </SectionReveal>
-
-      <SectionReveal style="float">
-        <NewsletterSection />
-      </SectionReveal>
+      <FeaturesStrip
+        badges={content.trustBadges}
+        stats={[
+          { value: totalProducts, suffix: "+", label: "Handcrafted Pieces" },
+          { value: categories.length, label: "Curated Categories" },
+          { value: 100, suffix: "%", label: "Secure Payments" },
+          { value: 7, suffix: " Days", label: "Easy Returns" },
+        ]}
+      />
     </>
   );
 }
