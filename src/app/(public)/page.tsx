@@ -1,10 +1,14 @@
 import { Hero } from "@/components/home/hero";
+import { CategoryIconStrip } from "@/components/home/category-icon-strip";
 import { PromoStrip } from "@/components/home/promo-strip";
 import { ProductCarousel } from "@/components/home/product-carousel";
-import { FeaturedBanner } from "@/components/home/featured-banner";
 import { ProductTabs } from "@/components/home/product-tabs";
+import { SplitPromo } from "@/components/home/split-promo";
 import { CategoryBanners } from "@/components/home/category-banners";
 import { FeaturesStrip } from "@/components/home/features-strip";
+import { BlogPreview } from "@/components/home/blog-preview";
+import { GalleryMosaic } from "@/components/home/gallery-mosaic";
+import { NewsletterBand } from "@/components/home/newsletter-band";
 import { getHomepageContent } from "@/lib/queries/homepage";
 import { getProducts } from "@/lib/queries/products";
 import { getCategories } from "@/lib/queries/categories";
@@ -37,6 +41,8 @@ export default async function HomePage() {
         productOfMonth={productOfMonth}
       />
 
+      <CategoryIconStrip />
+
       <PromoStrip />
 
       <ProductCarousel
@@ -46,24 +52,16 @@ export default async function HomePage() {
         viewAllHref="/shop?newArrival=true"
       />
 
-      <FeaturedBanner
-        eyebrow="The Craft"
-        title={content.ctaTitle}
-        subtitle={content.ctaSubtitle}
-        buttonLabel={content.ctaButtonLabel}
-        buttonHref={content.ctaButtonHref}
-        image={content.ctaImage}
-      />
-
       <ProductTabs
         title="New Products"
         subtitle="Our latest designs, refreshed every week."
         categories={tabCategories}
         sort="newest"
+        limit={8}
         viewAllHref="/shop?sort=newest"
       />
 
-      <CategoryBanners collections={content.collections} />
+      <SplitPromo />
 
       <ProductTabs
         title="Trending Products"
@@ -71,8 +69,11 @@ export default async function HomePage() {
         categories={tabCategories}
         sort="newest"
         featured
+        limit={8}
         viewAllHref="/shop?sort=featured"
       />
+
+      <CategoryBanners collections={content.collections} />
 
       <FeaturesStrip
         badges={content.trustBadges}
@@ -83,6 +84,12 @@ export default async function HomePage() {
           { value: 7, suffix: " Days", label: "Easy Returns" },
         ]}
       />
+
+      <BlogPreview />
+
+      <GalleryMosaic />
+
+      <NewsletterBand />
     </>
   );
 }

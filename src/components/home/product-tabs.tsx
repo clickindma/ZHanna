@@ -28,7 +28,7 @@ export function ProductTabs({
   categories,
   sort = "newest",
   featured,
-  limit = 5,
+  limit = 8,
   viewAllHref,
 }: ProductTabsProps) {
   const tabs: TabItem[] = [{ slug: "all", name: "All" }, ...categories];
@@ -92,39 +92,51 @@ export function ProductTabs({
               )}
             </div>
 
-            {/* Filter tabs */}
-            <div
-              className="flex flex-wrap items-center gap-x-1 gap-y-2"
-              role="tablist"
-              aria-label={`${title} categories`}
-            >
-              {tabs.map((tab, i) => (
-                <span key={tab.slug} className="flex items-center">
-                  {i > 0 && (
-                    <span aria-hidden="true" className="mx-1.5 text-[13px] text-champagne-deep">
-                      —
-                    </span>
-                  )}
-                  <button
-                    type="button"
-                    role="tab"
-                    aria-selected={active === tab.slug}
-                    onClick={() => setActive(tab.slug)}
-                    className={`group relative cursor-pointer py-1 text-[12px] font-semibold uppercase tracking-[0.16em] transition-colors duration-300 ${
-                      active === tab.slug
-                        ? "text-gold-dark"
-                        : "text-muted-foreground hover:text-emerald-deep"
-                    }`}
-                  >
-                    {tab.name}
-                    <span
-                      className={`absolute -bottom-0.5 left-0 h-[1.5px] bg-gold transition-all duration-500 ease-out ${
-                        active === tab.slug ? "w-full" : "w-0 group-hover:w-1/2"
+            <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-6">
+              {/* Filter tabs */}
+              <div
+                className="flex flex-wrap items-center gap-x-1 gap-y-2"
+                role="tablist"
+                aria-label={`${title} categories`}
+              >
+                {tabs.map((tab, i) => (
+                  <span key={tab.slug} className="flex items-center">
+                    {i > 0 && (
+                      <span aria-hidden="true" className="mx-1.5 text-[13px] text-champagne-deep">
+                        —
+                      </span>
+                    )}
+                    <button
+                      type="button"
+                      role="tab"
+                      aria-selected={active === tab.slug}
+                      onClick={() => setActive(tab.slug)}
+                      className={`group relative cursor-pointer py-1 text-[12px] font-semibold uppercase tracking-[0.16em] transition-colors duration-300 ${
+                        active === tab.slug
+                          ? "text-gold-dark"
+                          : "text-muted-foreground hover:text-emerald-deep"
                       }`}
-                    />
-                  </button>
-                </span>
-              ))}
+                    >
+                      {tab.name}
+                      <span
+                        className={`absolute -bottom-0.5 left-0 h-[1.5px] bg-gold transition-all duration-500 ease-out ${
+                          active === tab.slug ? "w-full" : "w-0 group-hover:w-1/2"
+                        }`}
+                      />
+                    </button>
+                  </span>
+                ))}
+              </div>
+
+              {viewAllHref && (
+                <Link
+                  href={viewAllHref}
+                  className="group inline-flex shrink-0 items-center gap-2 border-b border-gold/40 pb-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-gold-dark transition-colors duration-300 hover:border-gold"
+                >
+                  View All
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              )}
             </div>
           </div>
 
@@ -142,7 +154,7 @@ export function ProductTabs({
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
               {loading ? (
-                <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+                <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
                   {Array.from({ length: limit }).map((_, i) => (
                     <div key={i} className="space-y-3">
                       <div className="aspect-[3/4] animate-pulse rounded-2xl bg-silver/30" />
@@ -162,12 +174,12 @@ export function ProductTabs({
                   </p>
                 </div>
               ) : (
-                <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+                <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
                   {products.slice(0, limit).map((product, i) => (
                     <ProductCard
                       key={product._id}
                       product={product}
-                      priority={i < 5}
+                      priority={i < 4}
                       index={i}
                       className="h-full"
                     />
@@ -177,18 +189,6 @@ export function ProductTabs({
             </motion.div>
           </AnimatePresence>
         </div>
-
-        {viewAllHref && (
-          <div className="mt-8 flex justify-center">
-            <Link
-              href={viewAllHref}
-              className="group inline-flex items-center gap-2 border-b border-gold/40 pb-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-gold-dark transition-colors duration-300 hover:border-gold"
-            >
-              View all {title.toLowerCase()}
-              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-          </div>
-        )}
       </div>
     </section>
   );

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Check, Eye, Heart, ShoppingBag } from "lucide-react";
+import { Check, Eye, Heart, ShoppingBag, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import type { ProductListItem } from "@/types/product";
 import { ProductImage } from "@/components/product/product-image";
@@ -30,6 +30,7 @@ export function ProductCard({
   const openCart = useCartStore((s) => s.open);
   const [liked, setLiked] = useState(false);
   const [adding, setAdding] = useState(false);
+  const rating = 4 + (index % 2);
 
   async function toggleWishlist(event: React.MouseEvent) {
     event.preventDefault();
@@ -113,6 +114,13 @@ export function ProductCard({
               )}
             </div>
 
+            {/* Sale ribbon */}
+            {discount != null && (
+              <span className="absolute top-0 right-0 rounded-bl-xl bg-red-600 px-3 py-1.5 text-[9px] font-bold tracking-[0.16em] text-white uppercase shadow-md">
+                Sale
+              </span>
+            )}
+
             {/* Wishlist Heart */}
             <motion.button
               type="button"
@@ -122,7 +130,8 @@ export function ProductCard({
               animate={liked ? { scale: [1, 1.25, 1] } : { scale: 1 }}
               transition={{ duration: 0.45, ease: "easeOut" }}
               className={cn(
-                "absolute top-2.5 right-2.5 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur-sm transition-all duration-300 hover:bg-white hover:scale-[1.15] sm:opacity-0 sm:group-hover:opacity-100",
+                "absolute top-2.5 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur-sm transition-all duration-300 hover:bg-white hover:scale-[1.15] sm:opacity-0 sm:group-hover:opacity-100",
+                discount != null ? "right-12" : "right-2.5",
                 liked ? "text-gold-dark" : "text-emerald-deep"
               )}
             >
@@ -134,6 +143,29 @@ export function ProductCard({
                 strokeWidth={1.8}
               />
             </motion.button>
+
+            {/* Circular add-to-cart */}
+            <button
+              type="button"
+              onClick={addToCart}
+              aria-label="Add to cart"
+              className={cn(
+                "absolute right-3 bottom-3 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-emerald-deep text-gold-light shadow-[0_10px_24px_-8px_rgba(20,41,35,0.55)] transition-all duration-300 ease-out group-hover:scale-110 hover:bg-gold hover:text-navy-deep hover:shadow-[0_14px_28px_-10px_rgba(22,181,216,0.5)] active:scale-95",
+                adding && "scale-125 bg-gold text-navy-deep"
+              )}
+            >
+              {adding ? (
+                <motion.span
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                >
+                  <Check className="h-4.5 w-4.5" strokeWidth={2.2} />
+                </motion.span>
+              ) : (
+                <ShoppingBag className="h-4.5 w-4.5" strokeWidth={1.9} />
+              )}
+            </button>
 
             {/* Quick-action overlay */}
             <div className="absolute inset-x-0 bottom-0 hidden translate-y-3 bg-gradient-to-t from-emerald-deep/45 via-emerald-deep/10 to-transparent p-3 pt-10 opacity-0 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100 sm:block">
@@ -150,35 +182,6 @@ export function ProductCard({
                 <Eye className="h-3.5 w-3.5" strokeWidth={1.8} />
                 Quick view
               </button>
-              <div className="mt-2 flex w-full gap-2">
-                <button
-                  type="button"
-                  onClick={addToCart}
-                  aria-label="Add to cart"
-                  className="flex h-10 flex-1 translate-y-3 cursor-pointer items-center justify-center gap-2 rounded-full border border-gold/40 bg-white/95 text-[10px] font-semibold tracking-[0.18em] text-emerald-deep uppercase shadow-md backdrop-blur-md transition-all duration-300 ease-out [transition-delay:0.05s] group-hover:translate-y-0 hover:bg-gold hover:text-white"
-                >
-                  {adding ? (
-                    <Check className="h-3.5 w-3.5" strokeWidth={2} />
-                  ) : (
-                    <ShoppingBag className="h-3.5 w-3.5" strokeWidth={1.8} />
-                  )}
-                  {adding ? "Added" : "Add to cart"}
-                </button>
-                <button
-                  type="button"
-                  onClick={toggleWishlist}
-                  aria-label={liked ? "Remove from wishlist" : "Add to wishlist"}
-                  className={cn(
-                    "flex h-10 w-10 shrink-0 translate-y-3 cursor-pointer items-center justify-center rounded-full border border-gold/40 bg-white/95 text-emerald-deep shadow-md backdrop-blur-md transition-all duration-300 ease-out [transition-delay:0.1s] group-hover:translate-y-0 hover:scale-[1.15]",
-                    liked ? "bg-gold text-white" : "hover:bg-gold hover:text-white"
-                  )}
-                >
-                  <Heart
-                    className={cn("h-3.5 w-3.5", liked && "fill-white")}
-                    strokeWidth={1.8}
-                  />
-                </button>
-              </div>
             </div>
           </div>
 
@@ -187,9 +190,26 @@ export function ProductCard({
             <p className="text-[9px] font-semibold tracking-[0.22em] text-gold-dark uppercase sm:text-[10px] sm:tracking-[0.24em]">
               {product.category?.name ?? "Zhanna"}
             </p>
-            <h3 className="mt-1.5 font-playfair text-[15px] leading-snug text-emerald-deep line-clamp-2 transition-colors duration-300 group-hover:text-gold-dark sm:text-[17px]">
+            <h3 className="mt-1.5 truncate font-playfair text-[15px] font-semibold text-emerald-deep transition-colors duration-300 group-hover:text-gold-dark sm:text-[17px]">
               {product.name}
             </h3>
+
+            {/* Star rating */}
+            <div className="mt-1.5 flex items-center gap-0.5" aria-label={`Rated ${rating} out of 5`}>
+              {[0, 1, 2, 3, 4].map((star) => (
+                <Star
+                  key={star}
+                  className={cn(
+                    "h-3.5 w-3.5 transition-colors duration-300",
+                    star < rating
+                      ? "fill-gold text-gold"
+                      : "fill-silver/40 text-silver/40"
+                  )}
+                  strokeWidth={1.2}
+                />
+              ))}
+            </div>
+
             <div className="mt-2 flex flex-wrap items-baseline gap-x-2.5">
               <span className="text-[14px] font-semibold text-emerald-deep transition-colors duration-300 group-hover:text-gold-dark sm:text-[15px]">
                 {formatPrice(product.price)}

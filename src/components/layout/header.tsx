@@ -343,7 +343,7 @@ export function Header({ navLinks }: HeaderProps) {
             <div className="flex min-w-0 items-center gap-1.5">
               <MobileMenu />
               <Link href="/" aria-label="Zhanna — Home" className="transition-opacity hover:opacity-80">
-                <BrandLogo className="h-11 w-auto sm:h-14 lg:h-16" priority />
+                <BrandLogo className="h-[66px] w-auto sm:h-[84px] lg:h-[96px]" priority />
               </Link>
             </div>
 

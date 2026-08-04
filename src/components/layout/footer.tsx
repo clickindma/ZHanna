@@ -187,7 +187,7 @@ export function Footer({
             {/* Brand + Social */}
             <div>
               <Link href="/" aria-label="Zhanna — Home" className="inline-block">
-                <BrandLogo className="h-14 w-auto" />
+                <BrandLogo className="h-[84px] w-auto" />
               </Link>
               <p className="mt-5 max-w-xs text-[13px] leading-relaxed text-white/50 sm:text-[14px]">
                 {footerDescription}
