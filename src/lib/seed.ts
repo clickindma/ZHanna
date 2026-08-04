@@ -156,9 +156,11 @@ const FREE_SHIPPING_THRESHOLD = 999;
 const SHIPPING_FEE = 79;
 
 /**
- * Seeds the database with a default admin user, sample customers, categories,
- * products and a handful of demo orders. Idempotent — existing records
- * (matched by slug/email) are left untouched, so it is safe to run repeatedly.
+ * Seeds the database with the admin account, demo customers, categories,
+ * products and a handful of demo orders. Existing records (matched by
+ * slug/email) are left untouched, so it is safe to run repeatedly — except
+ * the admin account, whose password and role are refreshed on every run so
+ * re-seeding can restore lost credentials.
  */
 export async function seedDatabase(): Promise<SeedSummary> {
   await dbConnect();
@@ -185,6 +187,12 @@ export async function seedDatabase(): Promise<SeedSummary> {
       addresses: [],
     });
     summary.adminCreated = 1;
+  } else {
+    const hashedPassword = await bcrypt.hash(SEED_ADMIN.password, 10);
+    adminExists.password = hashedPassword;
+    adminExists.role = "admin";
+    adminExists.name = SEED_ADMIN.name;
+    await adminExists.save();
   }
 
   for (const customerData of SEED_CUSTOMERS) {

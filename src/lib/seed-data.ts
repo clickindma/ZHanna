@@ -3,7 +3,7 @@ import type { ICategory, IProduct, Material } from "@/types/models";
 export const SEED_ADMIN = {
   name: "Zhanna Admin",
   email: "admin@zhanna.com",
-  password: "admin123",
+  password: "Zhanna@2026",
 };
 
 export const SEED_CATEGORIES: Array<Omit<ICategory, "isActive"> & { isActive: boolean }> = [
