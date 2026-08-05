@@ -274,10 +274,11 @@ export const WavyBackground = ({
   children,
   className,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current!;
@@ -329,19 +330,24 @@ export const WavyBackground = ({
 
     const startTime = performance.now();
 
+    // Size the drawing buffer to the element's CSS size (container-aware),
+    // capped to a reasonable DPR so low-power devices stay smooth.
+    const resizeCanvas = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const width = Math.max(1, Math.round(canvas.clientWidth * dpr));
+      const height = Math.max(1, Math.round(canvas.clientHeight * dpr));
+      if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width;
+        canvas.height = height;
+        gl.viewport(0, 0, width, height);
+      }
+    };
+
     function render() {
       const currentTime = performance.now();
       const elapsed = (currentTime - startTime) * 0.001; // seconds
 
-      // Resize canvas to fill window dimensions within the render loop
-      if (
-        canvas.width !== window.innerWidth ||
-        canvas.height !== window.innerHeight
-      ) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        gl.viewport(0, 0, canvas.width, canvas.height);
-      }
+      resizeCanvas();
 
       gl.clear(gl.COLOR_BUFFER_BIT);
 
@@ -356,22 +362,16 @@ export const WavyBackground = ({
     }
 
     // Initial canvas sizing and viewport setup
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    gl.viewport(0, 0, canvas.width, canvas.height);
+    resizeCanvas();
 
     render();
 
-    // Listen for window resizing
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      gl.viewport(0, 0, canvas.width, canvas.height);
-    };
-    window.addEventListener("resize", handleResize);
+    // Resize with the container (covers window resize and layout shifts)
+    const resizeObserver = new ResizeObserver(resizeCanvas);
+    resizeObserver.observe(canvas);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      resizeObserver.disconnect();
       // Clean up WebGL resources
       gl.deleteProgram(program);
       gl.deleteBuffer(vbo);
@@ -380,16 +380,21 @@ export const WavyBackground = ({
   }, []);
 
   return (
-    <div className={cn("relative w-full h-screen overflow-hidden", className)}>
+    <div
+      ref={wrapRef}
+      className={cn("w-full h-full overflow-hidden", className)}
+    >
       <canvas
         ref={canvasRef}
-        className="absolute inset-0"
+        className="absolute inset-0 h-full w-full"
         style={{ background: "transparent" }}
       />
 
-      <div className="relative z-10 w-full h-full flex items-center justify-center">
-        {children}
-      </div>
+      {children ? (
+        <div className="pointer-events-none relative z-10 h-full w-full">
+          {children}
+        </div>
+      ) : null}
     </div>
   );
 };

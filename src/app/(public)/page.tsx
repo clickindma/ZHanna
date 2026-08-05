@@ -19,11 +19,13 @@ export const dynamic = "force-dynamic";
 export default async function HomePage() {
   const content = await getHomepageContent();
 
-  const [categories, newArrivals, { products: featured }] = await Promise.all([
-    getCategories(),
-    getProducts({ newArrival: true, sort: "newest", limit: 10 }),
-    getProducts({ featured: true, sort: "newest", limit: 1 }),
-  ]);
+  const [categories, newArrivals, { products: featured }, showcase] =
+    await Promise.all([
+      getCategories(),
+      getProducts({ newArrival: true, sort: "newest", limit: 10 }),
+      getProducts({ featured: true, sort: "newest", limit: 1 }),
+      getProducts({ featured: true, sort: "newest", limit: 8 }),
+    ]);
 
   const totalProducts = categories.reduce((sum, category) => sum + category.productCount, 0);
   const tabCategories = categories.map((category) => ({
@@ -91,7 +93,7 @@ export default async function HomePage() {
 
       <GalleryMosaic />
 
-      <NewsletterBand />
+      <NewsletterBand products={showcase.products} />
     </>
   );
 }
