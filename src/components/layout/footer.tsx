@@ -316,7 +316,13 @@ export function Footer({
                 href="/terms"
                 className="text-[11px] uppercase tracking-[0.16em] text-white/40 transition-colors duration-300 hover:text-turquoise"
               >
-                Terms
+                Terms &amp; Conditions
+              </Link>
+              <Link
+                href="/sitemap"
+                className="text-[11px] uppercase tracking-[0.16em] text-white/40 transition-colors duration-300 hover:text-turquoise"
+              >
+                Sitemap
               </Link>
               <Link
                 href="/shipping"
