@@ -1,22 +1,15 @@
 "use client";
 
-import Image from "next/image";
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
+import { WavyBackground } from "@/components/ui/wavy";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function NewsletterBand() {
-  const sectionRef = useRef<HTMLElement>(null);
   const [email, setEmail] = useState("");
   const [done, setDone] = useState(false);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  const parallaxY = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
 
   function onSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -25,21 +18,8 @@ export function NewsletterBand() {
   }
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden">
-      {/* Parallax background */}
-      <motion.div style={{ y: parallaxY }} className="absolute inset-0 scale-110">
-        <Image
-          src="/brand/cta-banner.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          priority={false}
-          className="object-cover"
-        />
-      </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-b from-navy-brand/85 via-navy-brand/70 to-navy-brand/85" />
-
-      <div className="relative mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:py-24">
+    <WavyBackground>
+      <div className="w-full max-w-3xl px-4 text-center sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -99,6 +79,6 @@ export function NewsletterBand() {
           </motion.form>
         )}
       </div>
-    </section>
+    </WavyBackground>
   );
 }

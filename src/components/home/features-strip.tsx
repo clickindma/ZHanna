@@ -13,6 +13,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import type { HomeTrustItemContent } from "@/types/homepage";
+import { ShaderBackground } from "@/components/ui/manu";
 
 const ICONS: Record<string, LucideIcon> = {
   truck: Truck,
@@ -79,7 +80,9 @@ export function FeaturesStrip({ badges, stats }: FeaturesStripProps) {
 
   return (
     <section className="relative overflow-hidden bg-navy-brand">
+      <ShaderBackground className="absolute inset-0 h-full w-full" />
       <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.04]" />
+      <div className="pointer-events-none absolute inset-0 bg-navy-brand/55" />
       <div className="pointer-events-none absolute -top-24 left-1/3 h-64 w-64 rounded-full bg-teal/10 blur-[110px]" />
 
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
