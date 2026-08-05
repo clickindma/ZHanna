@@ -85,19 +85,19 @@ export function ProductCard({
       }}
       className={cn("group relative", className)}
     >
-      <div className="flex h-full flex-col rounded-2xl transition-all duration-[350ms] ease-out group-hover:-translate-y-1.5 group-hover:shadow-[0_14px_28px_rgba(11,21,34,0.1)]">
+      <div className="sheen flex h-full flex-col rounded-2xl transition-all duration-[350ms] ease-out group-hover:-translate-y-1.5 group-hover:shadow-[0_14px_28px_rgba(11,21,34,0.1)]">
         <Link
           href={`/product/${product.slug}`}
           className="flex flex-1 flex-col focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
         >
           {/* Image Container */}
-          <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-champagne-deep bg-parchment shadow-sm transition-colors duration-500 group-hover:border-turquoise/50">
+          <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-champagne-deep bg-parchment shadow-sm transition-all duration-500 group-hover:border-turquoise/60 group-hover:shadow-[0_10px_30px_-10px_rgba(22,181,216,0.28)]">
             <ProductImage
               src={product.images[0]}
               alt={product.name}
               name={product.name}
               priority={priority}
-              imgClassName="transition-transform duration-[350ms] ease-out group-hover:scale-110"
+              imgClassName="transition-transform duration-[450ms] ease-out group-hover:scale-110"
             />
 
             {/* Badges */}
@@ -168,7 +168,7 @@ export function ProductCard({
             </button>
 
             {/* Quick-action overlay */}
-            <div className="absolute inset-x-0 bottom-0 hidden translate-y-3 bg-gradient-to-t from-emerald-deep/45 via-emerald-deep/10 to-transparent p-3 pt-10 opacity-0 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100 sm:block">
+            <div className="absolute inset-x-0 bottom-0 hidden translate-y-3 bg-gradient-to-t from-emerald-deep/55 via-emerald-deep/15 to-transparent p-3 pt-12 opacity-0 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100 sm:block">
               <button
                 type="button"
                 onClick={(event) => {
@@ -177,7 +177,7 @@ export function ProductCard({
                   window.location.href = `/product/${product.slug}`;
                 }}
                 aria-label="Quick view"
-                className="flex h-10 w-full translate-y-3 cursor-pointer items-center justify-center gap-2 rounded-full border border-gold/40 bg-white/95 text-[10px] font-semibold tracking-[0.18em] text-emerald-deep uppercase shadow-md backdrop-blur-md transition-all duration-300 ease-out [transition-delay:0s] group-hover:translate-y-0 hover:bg-gold hover:text-white"
+                className="flex h-10 w-full translate-y-3 cursor-pointer items-center justify-center gap-2 rounded-full border border-gold/40 bg-white/95 text-[10px] font-semibold tracking-[0.18em] text-emerald-deep uppercase shadow-lg backdrop-blur-md transition-all duration-300 ease-out [transition-delay:0s] group-hover:translate-y-0 hover:bg-gold hover:text-white hover:shadow-[0_8px_20px_-6px_rgba(22,181,216,0.5)]"
               >
                 <Eye className="h-3.5 w-3.5" strokeWidth={1.8} />
                 Quick view
@@ -215,9 +215,14 @@ export function ProductCard({
                 {formatPrice(product.price)}
               </span>
               {product.compareAtPrice != null && (
-                <span className="text-[12px] text-ink-soft line-through decoration-ink-soft/50 sm:text-[13px]">
-                  {formatPrice(product.compareAtPrice)}
-                </span>
+                <>
+                  <span className="text-[12px] text-ink-soft line-through decoration-ink-soft/50 sm:text-[13px]">
+                    {formatPrice(product.compareAtPrice)}
+                  </span>
+                  <span className="text-[11px] font-semibold text-turquoise sm:text-[12px]">
+                    Save {formatPrice(product.compareAtPrice - product.price)}
+                  </span>
+                </>
               )}
             </div>
           </div>

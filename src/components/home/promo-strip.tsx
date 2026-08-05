@@ -55,10 +55,11 @@ export function PromoStrip() {
                 delay: i * 0.12,
                 ease: [0.22, 1, 0.36, 1],
               }}
+              className="sheen"
             >
               <Link
                 href={promo.ctaHref}
-                className="group relative flex min-h-[13rem] items-stretch overflow-hidden rounded-2xl border border-champagne-deep bg-gradient-to-br from-parchment via-white to-ice shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_18px_44px_-18px_rgba(11,21,34,0.18)]"
+                className="group relative flex min-h-[13rem] items-stretch overflow-hidden rounded-2xl border border-champagne-deep bg-gradient-to-br from-parchment via-white to-ice shadow-sm transition-all duration-500 hover:-translate-y-1 hover:border-turquoise/40 hover:shadow-[0_18px_44px_-14px_rgba(22,181,216,0.25)]"
               >
                 {/* Text side */}
                 <div className="relative z-10 flex w-[55%] flex-col justify-center p-6 sm:p-7">
@@ -73,7 +74,7 @@ export function PromoStrip() {
                   </p>
                   <span className="relative mt-4 inline-flex w-fit items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-gold-dark">
                     {promo.ctaLabel}
-                    <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-gold-dark transition-all duration-500 ease-out group-hover:w-full" />
+                    <span className="absolute -bottom-1 left-0 h-[1.5px] w-0 bg-gradient-to-r from-turquoise to-aqua transition-all duration-500 ease-out group-hover:w-full" />
                   </span>
                 </div>
 

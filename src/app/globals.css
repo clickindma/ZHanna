@@ -96,6 +96,7 @@
     from {
       transform: translateX(0);
     }
+
     to {
       transform: translateX(-50%);
     }
@@ -105,16 +106,19 @@
     from {
       transform: translateX(-100%);
     }
+
     to {
       transform: translateX(100%);
     }
   }
 
   @keyframes float {
+
     0%,
     100% {
       transform: translateY(0);
     }
+
     50% {
       transform: translateY(-14px);
     }
@@ -156,16 +160,26 @@
   --sidebar-ring: var(--gold);
 
   /* Official Zhanna brand palette */
-  --turquoise: #16b5d8; /* Primary Brand — Turquoise Blue */
-  --teal: #0e8fb0; /* Dark Brand Blue — Deep Teal */
-  --aqua: #6fd7ee; /* Light Aqua — Soft Aqua */
-  --navy-brand: #0f172a; /* Luxury Navy — Midnight Navy */
-  --snow: #f8fcfd; /* Premium White — Snow White */
-  --ice: #edf9fc; /* Light Background — Ice Blue */
-  --silver: #d8e7ec; /* Border — Soft Silver */
-  --charcoal-brand: #1f2937; /* Heading — Rich Charcoal */
-  --slate-brand: #64748b; /* Paragraph — Slate Gray */
-  --champagne-silver: #c9d7dd; /* Premium Accent — Champagne Silver */
+  --turquoise: #16b5d8;
+  /* Primary Brand — Turquoise Blue */
+  --teal: #0e8fb0;
+  /* Dark Brand Blue — Deep Teal */
+  --aqua: #6fd7ee;
+  /* Light Aqua — Soft Aqua */
+  --navy-brand: #0f172a;
+  /* Luxury Navy — Midnight Navy */
+  --snow: #f8fcfd;
+  /* Premium White — Snow White */
+  --ice: #edf9fc;
+  /* Light Background — Ice Blue */
+  --silver: #d8e7ec;
+  /* Border — Soft Silver */
+  --charcoal-brand: #1f2937;
+  /* Heading — Rich Charcoal */
+  --slate-brand: #64748b;
+  /* Paragraph — Slate Gray */
+  --champagne-silver: #c9d7dd;
+  /* Premium Accent — Champagne Silver */
 
   /* Zhanna semantic tokens remapped to the official palette */
   --navy: #0f172a;
@@ -233,16 +247,19 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   html {
     @apply font-sans scroll-smooth;
     overflow-x: clip;
     -webkit-text-size-adjust: 100%;
   }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "ss01", "cv01";
     overflow-x: clip;
   }
+
   ::selection {
     @apply bg-gold/90 text-white;
   }
@@ -253,6 +270,7 @@
   }
 
   @media (max-width: 640px) {
+
     input,
     select,
     textarea {
@@ -305,14 +323,172 @@
   transform: translateY(-1px) scale(1.02);
 }
 
+/* ─── Luxe Card (glass + soft shadow + subtle border) ─────────────── */
+@utility card-luxe {
+  position: relative;
+  background: linear-gradient(160deg, oklch(1 0 0 / 0.92), oklch(0.99 0.004 220 / 0.72));
+  backdrop-filter: blur(14px);
+  border: 1px solid oklch(0.91 0.016 220 / 0.7);
+  box-shadow:
+    0 1px 2px oklch(0.16 0.02 250 / 0.04),
+    0 8px 24px -8px oklch(0.16 0.02 250 / 0.08),
+    0 24px 48px -20px oklch(0.16 0.02 250 / 0.1);
+}
+
+/* ─── Hover Lift (default lift on hover) ───────────────────────────── */
+@utility hover-lift {
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px -12px oklch(0.16 0.02 250 / 0.16);
+  }
+}
+
+/* ─── Section Glow (radial soft glow for luxe sections) ────────────── */
+@utility bg-luxe-glow {
+  background:
+    radial-gradient(60rem 32rem at 12% -8%, oklch(0.94 0.03 220 / 0.5), transparent 60%),
+    radial-gradient(48rem 28rem at 100% 0%, oklch(0.92 0.04 210 / 0.42), transparent 55%),
+    var(--snow);
+}
+
+@utility bg-luxe-glow-dark {
+  background:
+    radial-gradient(54rem 30rem at 15% -6%, oklch(0.28 0.05 230 / 0.5), transparent 55%),
+    radial-gradient(46rem 26rem at 100% 2%, oklch(0.22 0.04 225 / 0.42), transparent 50%),
+    var(--navy-deep);
+}
+
+/* ─── Luxury Sheen (moving light sweep, used on cards & images) ────── */
+@utility sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.sheen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(105deg,
+      transparent 42%,
+      oklch(1 0 0 / 0.32) 50%,
+      transparent 58%);
+  transform: translateX(-120%);
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sheen:hover::before {
+  transform: translateX(120%);
+}
+
+/* ─── Text Shadow Glow (for hero headings) ─────────────────────────── */
+@utility text-glow-soft {
+  text-shadow: 0 0 24px oklch(0.8 0.05 220 / 0.25);
+}
+
+/* ─── Sparkle (decorative animated sparkles) ───────────────────────── */
+@keyframes sparkle {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.3) rotate(0deg);
+  }
+
+  30% {
+    opacity: 1;
+    transform: scale(1) rotate(18deg);
+  }
+
+  65% {
+    opacity: 0.7;
+    transform: scale(0.85) rotate(8deg);
+  }
+}
+
+@utility animate-sparkle {
+  animation: sparkle 4s ease-in-out infinite;
+}
+
+@utility animate-sparkle-delay {
+  animation: sparkle 4s ease-in-out 1.6s infinite;
+}
+
+@utility animate-sparkle-delay-2 {
+  animation: sparkle 4s ease-in-out 2.8s infinite;
+}
+
 @utility bg-noise {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+/* ─── Border Glow (animated gradient border for cards/banners) ─────── */
+@utility border-glow {
+  position: relative;
+}
+
+.border-glow::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, transparent 30%, var(--gold) 50%, transparent 70%);
+  background-size: 250% 250%;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.border-glow:hover::after {
+  opacity: 0.65;
+  animation: border-flow 2.4s linear infinite;
+}
+
+@keyframes border-flow {
+  from {
+    background-position: 0% 0%;
+  }
+
+  to {
+    background-position: 250% 250%;
+  }
+}
+
+/* ─── Gradient Chip for section eyebrows ───────────────────────────── */
+@utility chip-luxe {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.875rem;
+  border-radius: 999px;
+  border: 1px solid var(--champagne-deep);
+  background: linear-gradient(120deg, oklch(1 0 0 / 0.9), oklch(0.97 0.012 220 / 0.75));
+  box-shadow: 0 2px 8px -2px oklch(0.16 0.02 250 / 0.08);
+  backdrop-filter: blur(8px);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
 }
 
 @utility shimmer-line {
   position: relative;
   overflow: hidden;
-}.shimmer-line::after {
+}
+
+.shimmer-line::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -324,12 +500,14 @@
 @utility scrollbar-none {
   scrollbar-width: none;
   -ms-overflow-style: none;
+
   &::-webkit-scrollbar {
     display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

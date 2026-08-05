@@ -153,17 +153,29 @@ function HeroSlider({
         animate="show"
         className="relative flex h-full min-h-[26rem] items-center px-6 py-10 sm:min-h-[30rem] sm:px-10 lg:min-h-[32rem]"
       >
+        {/* Decorative sparkles */}
+        <div className="pointer-events-none absolute top-10 right-12 hidden sm:block" aria-hidden="true">
+          <span className="animate-sparkle block text-base text-aqua">+</span>
+        </div>
+        <div className="pointer-events-none absolute top-24 right-1/3 hidden md:block" aria-hidden="true">
+          <span className="animate-sparkle-delay block text-sm text-turquoise">+</span>
+        </div>
+        <div className="pointer-events-none absolute bottom-16 right-24 hidden sm:block" aria-hidden="true">
+          <span className="animate-sparkle-delay-2 block text-sm text-aqua/70">+</span>
+        </div>
+
         <div className="max-w-xl">
           <motion.p
             variants={fadeUp}
-            className="text-[10px] font-medium uppercase tracking-[0.32em] text-aqua/90 sm:text-[11px] sm:tracking-[0.35em]"
+            className="chip-luxe"
           >
+            <span className="h-1 w-1 rounded-full bg-turquoise" />
             {content.eyebrow || "Exclusive Collection"}
           </motion.p>
 
           <motion.h1
             variants={fadeUp}
-            className="mt-4 font-playfair text-3xl font-semibold leading-[1.1] tracking-tight text-snow sm:mt-5 sm:text-5xl lg:text-6xl"
+            className="mt-5 font-playfair text-3xl font-semibold leading-[1.1] tracking-tight text-snow sm:mt-6 sm:text-5xl lg:text-6xl"
           >
             {content.title.map((line, index) => (
               <span key={index} className={index === 1 ? "block" : ""}>
@@ -216,11 +228,10 @@ function HeroSlider({
               type="button"
               onClick={() => setCurrentSlide(index)}
               aria-label={`Go to slide ${index + 1}`}
-              className={`transition-all duration-500 ${
-                currentSlide === index
+              className={`transition-all duration-500 ${currentSlide === index
                   ? "h-2.5 w-7 rounded-full bg-turquoise shadow-[0_0_12px_rgba(22,181,216,0.6)]"
                   : "h-2.5 w-2.5 rounded-full bg-silver/40 hover:bg-silver/70"
-              }`}
+                }`}
             />
           ))}
           <span className="ml-3 text-[10px] font-medium tracking-wider text-silver/50 uppercase">
@@ -311,7 +322,7 @@ export function Hero({
   const mobileCategories = categories.length > 0 ? categories : [];
 
   return (
-    <section className="bg-snow">
+    <section className="bg-snow bg-luxe-glow">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         {/* Mobile category chips */}
         {mobileCategories.length > 0 && (
@@ -320,7 +331,7 @@ export function Hero({
               <Link
                 key={category.slug}
                 href={`/shop?category=${category.slug}`}
-                className="shrink-0 rounded-full border border-champagne-deep bg-white px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-emerald-deep shadow-sm transition-all duration-300 hover:border-gold/50 hover:text-gold-dark"
+                className="shrink-0 rounded-full border border-champagne-deep bg-white px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-emerald-deep shadow-sm transition-all duration-300 hover:border-gold/50 hover:text-gold-dark hover:shadow-[0_4px_12px_-3px_rgba(22,181,216,0.3)]"
               >
                 {category.name}
               </Link>
