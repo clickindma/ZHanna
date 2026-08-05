@@ -17,7 +17,7 @@ export async function BlogPreview() {
   const { blogs } = await getBlogs({ limit: 3 });
 
   return (
-    <section className="bg-snow">
+    <section className="bg-transparent">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         {/* Heading row */}
         <div className="flex items-end justify-between gap-4">

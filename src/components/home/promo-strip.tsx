@@ -41,7 +41,7 @@ const PROMOS: PromoItem[] = [
 
 export function PromoStrip() {
   return (
-    <section className="bg-snow">
+    <section className="bg-transparent">
       <div className="mx-auto max-w-7xl px-4 pb-4 sm:px-6 lg:px-8">
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {PROMOS.map((promo, i) => (

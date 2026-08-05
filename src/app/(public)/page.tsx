@@ -1,4 +1,5 @@
 import { Hero } from "@/components/home/hero";
+import { JewelBackdrop } from "@/components/home/jewel-backdrop";
 import { CategoryIconStrip } from "@/components/home/category-icon-strip";
 import { PromoStrip } from "@/components/home/promo-strip";
 import { ProductCarousel } from "@/components/home/product-carousel";
@@ -34,6 +35,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <JewelBackdrop />
       <Hero
         content={content.hero}
         heroImages={content.heroImages}

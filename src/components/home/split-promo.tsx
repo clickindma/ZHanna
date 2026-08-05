@@ -9,7 +9,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function SplitPromo() {
   return (
-    <section className="bg-ivory">
+    <section className="bg-transparent">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Overlapping images */}

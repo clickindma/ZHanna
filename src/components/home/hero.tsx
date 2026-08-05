@@ -322,7 +322,7 @@ export function Hero({
   const mobileCategories = categories.length > 0 ? categories : [];
 
   return (
-    <section className="bg-snow bg-luxe-glow">
+    <section className="bg-transparent">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
         {/* Mobile category chips */}
         {mobileCategories.length > 0 && (

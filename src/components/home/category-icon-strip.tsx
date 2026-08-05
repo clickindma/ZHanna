@@ -23,7 +23,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function CategoryIconStrip() {
   return (
-    <section className="bg-snow">
+    <section className="bg-transparent">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-12">
         <div className="grid grid-cols-3 gap-x-4 gap-y-8 sm:grid-cols-6 sm:gap-6">
           {ITEMS.map((item, i) => {
